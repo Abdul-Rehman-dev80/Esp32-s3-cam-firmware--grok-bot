@@ -1,0 +1,81 @@
+menu "Digilog Desk Robot"
+
+config OTA_URL
+    string "Default OTA URL"
+    default "https://api.tenclass.net/xiaozhi/ota/"
+    help
+        The application will access this URL to check for new firmware.
+
+choice BOARD_TYPE
+    prompt "Target Board"
+    default BOARD_TYPE_DIGILOG_S3CAM_OLED if IDF_TARGET_ESP32S3
+    help
+        Select the board hardware configuration.
+
+    config BOARD_TYPE_DIGILOG_S3CAM_OLED
+        bool "Digilog ESP32-S3-CAM + 0.96 OLED Desk Robot"
+        depends on IDF_TARGET_ESP32S3
+        help
+            Digilog desk robot with:
+            - ESP32-S3 with 16MB flash and PSRAM
+            - 0.96" SSD1306 OLED display (128x64, I2C)
+            - OV2640 camera (onboard ESP32-S3-CAM)
+            - INMP441 I2S microphone
+            - MAX98357A I2S amplifier
+            - Dual SG90 servos (yaw/base + pitch/head)
+endchoice
+
+choice OLED_TYPE
+    prompt "OLED Display Type"
+    default OLED_SSD1306_128X64
+    depends on BOARD_TYPE_DIGILOG_S3CAM_OLED
+    help
+        Select the OLED display type.
+
+    config OLED_SSD1306_128X32
+        bool "SSD1306 128x32"
+    config OLED_SSD1306_128X64
+        bool "SSD1306 128x64"
+    config OLED_SH1106_128X64
+        bool "SH1106 128x64"
+endchoice
+
+choice
+    prompt "Default Language"
+    default LANGUAGE_EN_US
+    help
+        Select device display language.
+
+    config LANGUAGE_ZH_CN
+        bool "Chinese (Simplified)"
+    config LANGUAGE_EN_US
+        bool "English (US)"
+    config LANGUAGE_JA_JP
+        bool "Japanese"
+endchoice
+
+config SERVO_YAW_DEFAULT_ANGLE
+    int "Servo Yaw Default Angle (0-180)"
+    default 90
+    range 0 180
+    depends on BOARD_TYPE_DIGILOG_S3CAM_OLED
+    help
+        Default center angle for the yaw/base servo.
+
+config SERVO_PITCH_DEFAULT_ANGLE
+    int "Servo Pitch Default Angle (0-180)"
+    default 90
+    range 0 180
+    depends on BOARD_TYPE_DIGILOG_S3CAM_OLED
+    help
+        Default center angle for the pitch/head servo.
+
+config DIGILOG_FACE_ENABLE
+    bool "Enable DigilogFace robot face UI"
+    default y
+    depends on BOARD_TYPE_DIGILOG_S3CAM_OLED
+    help
+        Enable the custom robot face display instead of text UI.
+        Disable to use standard Xiaozhi OLED text display.
+
+endmenu

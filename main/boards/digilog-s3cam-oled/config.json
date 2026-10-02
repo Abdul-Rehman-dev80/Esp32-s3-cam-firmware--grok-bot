@@ -1,0 +1,17 @@
+{
+    "type": "digilog-s3cam-oled",
+    "manufacturer": "digilog",
+    "name": "Digilog ESP32-S3-CAM OLED Desk Robot",
+    "description": "ESP32-S3-CAM based desk robot with OLED face, dual servos, camera, and voice interface",
+    "features": [
+        "oled-128x64",
+        "ov2640-camera",
+        "dual-servo",
+        "i2s-mic",
+        "i2s-amp",
+        "wifi",
+        "wake-word"
+    ],
+    "flash_size": "16MB",
+    "psram": true
+}

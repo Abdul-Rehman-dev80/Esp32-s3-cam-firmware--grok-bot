@@ -1,0 +1,9 @@
+# Digilog ESP32-S3-CAM 16MB Flash Partition Table
+# Matches recovered firmware layout from RECOVERY_REPORT.md
+# Name,   Type, SubType,  Offset,   Size,     Flags
+nvs,      data, nvs,      0x9000,   16K,
+otadata,  data, ota,      0xD000,   8K,
+phy_init, data, phy,      0xF000,   4K,
+ota_0,    app,  ota_0,    0x20000,  4032K,
+ota_1,    app,  ota_1,    0x410000, 4032K,
+assets,   data, spiffs,   0x800000, 8192K,
